@@ -1,0 +1,14 @@
+[
+  {
+    "id": "guia",
+    "pergunta": "Como gerar uma guia no sistema de prontuário eletrônico?"
+  },
+  {
+    "id": "guia",
+    "pergunta": "Como gerar uma guia de consulta?"
+  },
+  {
+    "id": "paciente",
+    "pergunta": "Como cadastrar um novo paciente?"
+  }
+]

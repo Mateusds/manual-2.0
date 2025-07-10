@@ -1,0 +1,10 @@
+{
+  "guia": {
+    "resumida": "Para gerar uma guia, acesse o menu de Agendamentos, preencha os dados do paciente, selecione a unidade, especialidade e médico, escolha o horário e confirme. Após o agendamento, a guia será gerada automaticamente ou poderá ser gerada manualmente no menu do atendimento.<p><a href='#card-guia-completa' class='manual-link' data-id='guia'> Clique aqui para maiores informações</a></p>",
+    "completa": "A geração da guia no sistema está diretamente relacionada ao agendamento de um atendimento. Siga os passos abaixo para realizar corretamente o processo.<br><br><b>✅ Passo a Passo para Gerar uma Guia</b> ... (conteúdo completo aqui) ..."
+  },
+  "paciente": {
+    "resumida": "Para cadastrar um novo paciente, acesse o menu Cadastros, clique em Novo Paciente, preencha os dados e salve. <br><a href='#card-paciente-completo' class='manual-link' data-id='paciente'>Clique aqui para maiores informações</a>",
+    "completa": "Conteúdo completo sobre cadastro de paciente..."
+  }
+}

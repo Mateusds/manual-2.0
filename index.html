@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual do Prontuário Médico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Remix Icon CDN para ícones -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://unpkg.com/typewriter-effect@latest/dist/index.js"></script>
+ 
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="header-logo"><i class="ri-book-2-line"></i></span>
+      <div>
+        <span class="header-title">Manual do Prontuário Médico</span><br>
+        <span class="header-desc">Guia completo do sistema</span>
+      </div>
+    </div>
+    <div class="header-search">
+      <input type="text" placeholder="Buscar no manual...">
+      <i class="ri-search-line"></i>
+    </div>
+    <!-- <button class="header-btn" id="openChatBtn">
+      <i class="ri-robot-2-line"></i> Assistente IA
+    </button> -->
+  </header>
+  <!-- Layout -->
+  <div class="container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <ul>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="guias">
+            <span><i class="ri-file-list-2-line"></i> Geração de Guias</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-guias" style="display: none;">
+            <button class="sidebar-link"><i class="ri-file-copy-2-line"></i> Guias de Consulta</button>
+            <button class="sidebar-link"><i class="ri-file-search-line"></i> Guias de Exame</button>
+            <button class="sidebar-link"><i class="ri-file-add-line"></i> Guias de Internação</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="cadastros">
+            <span><i class="ri-user-add-line"></i> Cadastros</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-cadastros">
+            <button class="sidebar-link"><i class="ri-user-line"></i> Pacientes</button>
+            <button class="sidebar-link"><i class="ri-user-settings-line"></i> Profissionais</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="pe">
+            <span><i class="ri-calendar-check-line"></i> Prontuário Eletrônico</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-pe">
+            <button class="sidebar-link"><i class="ri-file-user-line"></i> Consultas</button>
+            <button class="sidebar-link"><i class="ri-stethoscope-line"></i> Evoluções</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="financeiro">
+            <span><i class="ri-bank-card-line"></i> Financeiro</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-financeiro">
+            <button class="sidebar-link"><i class="ri-money-dollar-circle-line"></i> Faturamento</button>
+            <button class="sidebar-link"><i class="ri-file-chart-line"></i> Demonstrativos</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="relatorios">
+            <span><i class="ri-bar-chart-2-line"></i> Relatórios</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-relatorios">
+            <button class="sidebar-link"><i class="ri-bar-chart-box-line"></i> Médicos</button>
+            <button class="sidebar-link"><i class="ri-bar-chart-grouped-line"></i> Administrativos</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="seguranca">
+            <span><i class="ri-shield-user-line"></i> Segurança</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-seguranca">
+            <button class="sidebar-link"><i class="ri-lock-2-line"></i> Permissões</button>
+            <button class="sidebar-link"><i class="ri-user-settings-line"></i> Usuários</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-dropdown" data-dropdown="config">
+            <span><i class="ri-settings-3-line"></i> Configurações</span>
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+          <div class="sidebar-dropdown-content" id="dropdown-config">
+            <button class="sidebar-link"><i class="ri-settings-2-line"></i> Sistema</button>
+            <button class="sidebar-link"><i class="ri-database-2-line"></i> Integrações</button>
+          </div>
+        </li>
+        <li>
+          <button class="sidebar-link"><i class="ri-phone-line"></i> Suporte</button>
+        </li>
+      </ul>
+    </nav>
+    <!-- Main -->
+    <main class="main" id="mainContent">
+      <!-- Home (default) -->
+      <div class="welcome" id="homeWelcome">
+        <h1 class="welcome-title">
+          <span class="title-word">Bem-vindo</span>
+          <span class="title-word">ao</span>
+          <span class="title-word">Manual</span>
+          <span class="title-word">do</span>
+          <span class="title-word">Prontuário</span>
+          <span class="title-word">Médico</span>
+        </h1>
+        <p class="welcome-subtitle" id="typewriter-text" data-text="Encontre rapidamente as informações que precisa ou converse com nosso assistente inteligente"></p>
+        <span class="version">Versão 2.0 - Atualizado em Janeiro 2025</span>
+      </div>
+      <div class="cards-row" id="homeCards">
+        <div class="card" id="card-guia" data-section="guia">
+          <i class="ri-file-list-3-line"></i>
+          <h3>Como gerar uma guia</h3>
+          <p>Aprenda o passo a passo para gerar guias médicas</p>
+          <i class="ri-arrow-right-s-line arrow"></i>
+        </div>
+        <div class="card" id="card-cadastro" data-section="cadastro">
+          <i class="ri-user-add-line"></i>
+          <h3>Cadastrar paciente</h3>
+          <p>Tutorial completo de cadastro de novos pacientes</p>
+          <i class="ri-arrow-right-s-line arrow"></i>
+        </div>
+        <div class="card" id="card-relatorio" data-section="relatorio">
+          <i class="ri-bar-chart-2-line"></i>
+          <h3>Emitir relatórios</h3>
+          <p>Gere relatórios médicos e administrativos</p>
+          <i class="ri-arrow-right-s-line arrow"></i>
+        </div>
+        <div class="card" id="card-config" data-section="config">
+          <i class="ri-settings-3-line"></i>
+          <h3>Configurações do sistema</h3>
+          <p>Personalize as configurações do prontuário</p>
+          <i class="ri-arrow-right-s-line arrow"></i>
+        </div>
+      </div>
+      <div class="cards-row" id="iconCards" style="margin-top: 32px;">
+        <div class="card icon-card">
+          <span class="icon icon-1">
+            <!-- Ícone Estrela -->
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#F4AC52" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/>
+            </svg>
+          </span>
+          <h3>Favoritos</h3>
+          <p>Veja seus itens favoritos</p>
+        </div>
+        <div class="card icon-card">
+          <span class="icon icon-2">
+            <!-- Ícone Coração -->
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#E88C38" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z"/>
+            </svg>
+          </span>
+          <h3>Saúde</h3>
+          <p>Acompanhe sua saúde</p>
+        </div>
+        <div class="card icon-card">
+          <span class="icon icon-3">
+            <!-- Ícone Sino -->
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#545554" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4a1.5 1.5 0 0 0-3 0v0.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29A1 1 0 0 0 6 19h12a1 1 0 0 0 .71-1.71L18 16z"/>
+            </svg>
+          </span>
+          <h3>Notificações</h3>
+          <p>Receba alertas importantes</p>
+        </div>
+      </div>
+      <div class="actions-section" id="homeActions">
+        <h2>O que você pode fazer aqui?</h2>
+        <div class="actions-row">
+          <div class="action manual">
+            <div class="icon-bg"><i class="ri-book-open-line"></i></div>
+            <h4>Manual Completo</h4>
+            <p>Acesse todas as seções organizadas do manual com exemplos práticos</p>
+          </div>
+          <div class="action ia">
+            <div class="icon-bg"><i class="ri-robot-2-line"></i></div>
+            <h4>Assistente Inteligente</h4>
+            <p>Faça perguntas específicas e obtenha respostas precisas instantaneamente</p>
+          </div>
+          <div class="action busca">
+            <div class="icon-bg"><i class="ri-search-eye-line"></i></div>
+            <h4>Busca Avançada</h4>
+            <p>Encontre informações rapidamente com nossa busca inteligente</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seções específicas -->
+      <div class="section" id="section-guia" style="display:none;">
+        <h2>Geração de Guias</h2>
+        <p>Conteúdo detalhado sobre como gerar guias médicas, passo a passo, exemplos e dicas.</p>
+      </div>
+      <div class="section" id="section-cadastro" style="display:none;">
+        <h2>Cadastro de Pacientes</h2>
+        <p>Passo a passo para cadastrar pacientes, campos obrigatórios e dicas de preenchimento.</p>
+      </div>
+      <div class="section" id="section-relatorio" style="display:none;">
+        <h2>Relatórios</h2>
+        <p>Como emitir relatórios médicos e administrativos, filtros e exportação.</p>
+      </div>
+      <div class="section" id="section-config" style="display:none;">
+        <h2>Configurações do Sistema</h2>
+        <p>Personalize as configurações do sistema, integrações e preferências.</p>
+      </div>
+      <!-- Seção em desenvolvimento (exemplo) -->
+      <div class="dev-section" id="devSection" style="display:none;">
+        <span class="badge">Atualizado</span>
+        <h2>Seção em Desenvolvimento</h2>
+        <div class="dev-text">
+          Esta seção está sendo desenvolvida.<br>
+          Em breve teremos conteúdo completo aqui!
+        </div>
+        <div style="color: #6b7280; font-size: 0.98rem; margin-top: 18px;">
+          Última atualização: Janeiro 2025
+        </div>
+      </div>
+      <div class="section" id="card-guia-completa" style="display:none;">
+        <h2>Como Gerar uma Guia no Sistema de Prontuário Eletrônico</h2>
+        <p></p>
+      </div>
+      <div class="section" id="card-detalhe-completo" style="display:none;">
+        <h2 id="card-titulo"></h2>
+        <div id="card-conteudo"></div>
+      </div>
+    </main>
+  </div>
+  <!-- Chat Flutuante -->
+  <button class="chat-fab" id="chatFab" title="Assistente IA">
+    <span class="robot-status-wrapper"><i class="ri-robot-2-line"></i><span class="status-dot"></span></span>
+  </button>
+  <div class="chat-box" id="chatBox">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <i class="ri-book-2-line"></i>
+        <div class="chat-header-title-group">
+          <span class="chat-header-title">Assistente do Prontuário</span>
+          <!-- <span class="chat-header-status">Online • Sempre pronto para ajudar</span> -->
+        </div>
+      </div>
+      <button class="chat-close" id="closeChatBtn"><i class="ri-close-line"></i></button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot-msg">
+        <div class="msg-content">
+          <div class="bot-avatar">
+            <i class="ri-robot-2-line"></i>
+          </div>
+          <div class="msg-text">
+            Olá! Eu sou seu assistente virtual do prontuário médico. Como posso ajudá-lo hoje?
+          </div>
+          <button class="tts-btn" title="Ouvir mensagem" onclick="playTTS(this, 'Olá! Eu sou seu assistente virtual do prontuário médico. Como posso ajudá-lo hoje?')">
+            <i class="ri-volume-up-line"></i>
+          </button>
+        </div>
+      </div>
+      <div class="chat-faq-title">Perguntas frequentes:</div>
+      <div class="chat-faq-list">
+        <button class="chat-faq-btn">Como gerar uma guia de consulta?</button>
+        <button class="chat-faq-btn">Como cadastrar um novo paciente?</button>
+        <button class="chat-faq-btn">Como emitir relatórios?</button>
+        <button class="chat-faq-btn">Como configurar permissões de usuário?</button>
+      </div>
+    </div>
+    <form class="chat-input-row" id="chatForm" autocomplete="off">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Digite sua pergunta..." />
+      <button type="submit" class="chat-send-btn" id="chatSendBtn"><i class="ri-send-plane-2-line"></i></button>
+    </form>
+    <div class="chat-footer-note">
+      Pressione Enter para enviar
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
