@@ -1440,6 +1440,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 2. Efeitos avançados no hover do FAB
     chatFab.addEventListener('mouseenter', function() {
+      if (isMobile()) return; // Não mostra o tooltip em mobile
       if (isFabAnimating) return;
       isFabAnimating = true;
       
@@ -1828,6 +1829,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 10. Exibir automaticamente a cada 30 segundos
     setInterval(() => {
+      if (isMobile()) return; // Não mostra o tooltip em mobile
       if (!fabDialog && !chatBox.classList.contains('open') && chatFab.style.display !== 'none') {
         showFabDialog();
         setTimeout(hideFabDialog, 2200);
