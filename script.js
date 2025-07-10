@@ -1892,7 +1892,11 @@ document.addEventListener('DOMContentLoaded', function() {
     else setTheme(false);
     if (themeToggleBtn) {
       themeToggleBtn.addEventListener('click', function() {
+        themeToggleBtn.classList.add('transitioning');
         setTheme(!document.body.classList.contains('dark'));
+        setTimeout(() => {
+          themeToggleBtn.classList.remove('transitioning');
+        }, 500);
       });
     }
 }); // Fim do DOMContentLoaded
