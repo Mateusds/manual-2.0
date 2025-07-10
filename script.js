@@ -290,6 +290,168 @@ document.addEventListener('DOMContentLoaded', function() {
           );
         }
       });
+      
+      // Animar os ícones da seção de ações
+      animateActionIcons();
+    }
+    
+    // Função para animar os ícones da seção de ações
+    function animateActionIcons() {
+      if (typeof gsap === 'undefined') return;
+      
+      const actions = document.querySelectorAll('.action');
+      
+      // Reset inicial dos ícones
+      gsap.set(actions, {
+        opacity: 0,
+        y: 40,
+        scale: 0.8
+      });
+      
+      // Animação sequencial dos ícones
+      actions.forEach((action, index) => {
+        const iconBg = action.querySelector('.icon-bg');
+        const title = action.querySelector('h4');
+        const description = action.querySelector('p');
+        
+        // Animação do container da ação
+        gsap.to(action, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          delay: 2.0 + (index * 0.3),
+          ease: "back.out(1.7)"
+        });
+        
+        // Animação do ícone de fundo
+        if (iconBg) {
+          gsap.fromTo(iconBg, 
+            { scale: 0, rotation: -180, opacity: 0 },
+            { 
+              scale: 1, 
+              rotation: 0, 
+              opacity: 1,
+              duration: 0.8, 
+              delay: 2.2 + (index * 0.3),
+              ease: "back.out(1.7)"
+            }
+          );
+        }
+        
+        // Animação do título
+        if (title) {
+          gsap.fromTo(title,
+            { opacity: 0, y: 20 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.5, 
+              delay: 2.4 + (index * 0.3),
+              ease: "power2.out"
+            }
+          );
+        }
+        
+        // Animação da descrição
+        if (description) {
+          gsap.fromTo(description,
+            { opacity: 0, y: 15 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.5, 
+              delay: 2.6 + (index * 0.3),
+              ease: "power2.out"
+            }
+          );
+        }
+      });
+      
+      // Adicionar efeitos de hover nos ícones
+      addActionHoverEffects();
+    }
+    
+    // Função para adicionar efeitos de hover nos ícones de ação
+    function addActionHoverEffects() {
+      const actions = document.querySelectorAll('.action');
+      
+      actions.forEach(action => {
+        const iconBg = action.querySelector('.icon-bg');
+        
+        // Efeito de hover na ação
+        action.addEventListener('mouseenter', () => {
+          gsap.to(action, {
+            scale: 1.05,
+            y: -5,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+          
+          // Efeito no ícone de fundo
+          if (iconBg) {
+            gsap.to(iconBg, {
+              scale: 1.15,
+              rotation: 360,
+              duration: 0.5,
+              ease: "back.out(1.7)"
+            });
+            
+            // Adiciona brilho ao ícone
+            gsap.to(iconBg, {
+              boxShadow: "0 0 20px rgba(255,255,255,0.6)",
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          }
+        });
+        
+        action.addEventListener('mouseleave', () => {
+          gsap.to(action, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+          
+          // Reset do ícone de fundo
+          if (iconBg) {
+            gsap.to(iconBg, {
+              scale: 1,
+              rotation: 0,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+            
+            // Remove o brilho
+            gsap.to(iconBg, {
+              boxShadow: "none",
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          }
+        });
+        
+        // Efeito de clique
+        action.addEventListener('click', () => {
+          // Efeito de pulso no clique
+          gsap.to(action, {
+            scale: 0.95,
+            duration: 0.1,
+            ease: "power2.out",
+            onComplete: () => {
+              gsap.to(action, {
+                scale: 1.05,
+                duration: 0.1,
+                ease: "power2.out"
+              });
+            }
+          });
+          
+          // Cria partículas no clique
+          createParticleExplosion(action);
+        });
+      });
     }
     
     // Função para resetar os cards ao estado inicial
