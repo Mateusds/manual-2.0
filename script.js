@@ -100,68 +100,71 @@ document.addEventListener('DOMContentLoaded', function() {
     function startTypewriterEffect() {
       const typewriterElement = document.getElementById('typewriter-text');
       if (!typewriterElement) return;
-      
-      // Garante que o elemento esteja visível
-      typewriterElement.style.visibility = 'visible';
-      
-      // Limpa o conteúdo inicial completamente
+
+      // Limpa o texto e o cursor
       typewriterElement.textContent = '';
       typewriterElement.innerHTML = '';
-      
-      // Pequeno delay para garantir que o conteúdo foi limpo
+      typewriterElement.style.visibility = 'visible';
+
+      // Para qualquer instância anterior do Typewriter.js
+      if (window.typewriterInstance && typeof window.typewriterInstance.stop === 'function') {
+        window.typewriterInstance.stop();
+        window.typewriterInstance = null;
+      }
+
+      // Cancela timeout do fallback manual, se houver
+      if (window.typewriterTimeout) {
+        clearTimeout(window.typewriterTimeout);
+        window.typewriterTimeout = null;
+      }
+
       setTimeout(() => {
-              // Verifica se a biblioteca Typewriter está disponível
-      if (typeof Typewriter !== 'undefined') {
-        // Usa a biblioteca Typewriter.js
         const text = typewriterElement.getAttribute('data-text') || 'Encontre rapidamente as informações que precisa ou converse com nosso assistente inteligente';
-        const typewriter = new Typewriter(typewriterElement, {
-          strings: [text],
-          autoStart: true,
-          loop: false,
-          delay: 50,
-          deleteSpeed: 30,
-          cursor: '<span class="typewriter-cursor">|</span>',
-          onComplete: () => {
-            // Efeito final após completar a digitação
-            gsap.to(typewriterElement, {
-              scale: 1.02,
-              duration: 0.3,
-              ease: "power2.out",
-              yoyo: true,
-              repeat: 1
-            });
-          }
-        });
-              } else {
-          // Fallback com JavaScript puro
-          const text = typewriterElement.getAttribute('data-text') || 'Encontre rapidamente as informações que precisa ou converse com nosso assistente inteligente';
-        let index = 0;
-        
-        function typeChar() {
-          if (index < text.length) {
-            typewriterElement.innerHTML += text.charAt(index);
-            index++;
-            setTimeout(typeChar, 50);
-          } else {
-            // Adiciona cursor final
-            typewriterElement.innerHTML += '<span class="typewriter-cursor">|</span>';
-            
-            // Efeito final após completar a digitação
-            if (typeof gsap !== 'undefined') {
-              gsap.to(typewriterElement, {
-                scale: 1.02,
-                duration: 0.3,
-                ease: "power2.out",
-                yoyo: true,
-                repeat: 1
-              });
+        if (typeof Typewriter !== 'undefined') {
+          window.typewriterInstance = new Typewriter(typewriterElement, {
+            strings: [text],
+            autoStart: true,
+            loop: false,
+            delay: 50,
+            deleteSpeed: 30,
+            cursor: '<span class="typewriter-cursor">|</span>',
+            onComplete: () => {
+              if (typeof gsap !== 'undefined') {
+                gsap.to(typewriterElement, {
+                  scale: 1.02,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  yoyo: true,
+                  repeat: 1
+                });
+              }
+            }
+          });
+        } else {
+          // Fallback manual
+          let index = 0;
+          function typeChar() {
+            if (index < text.length) {
+              typewriterElement.innerHTML += text.charAt(index);
+              index++;
+              window.typewriterTimeout = setTimeout(typeChar, 50);
+            } else {
+              typewriterElement.innerHTML += '<span class="typewriter-cursor">|</span>';
+              if (typeof gsap !== 'undefined') {
+                gsap.to(typewriterElement, {
+                  scale: 1.02,
+                  duration: 0.3,
+                  ease: "power2.out",
+                  yoyo: true,
+                  repeat: 1
+                });
+              }
+              window.typewriterTimeout = null;
             }
           }
+          typeChar();
         }
-        
-        typeChar();
-      }
-    }, 100);
+      }, 100);
     }
     
     // Executa a animação quando a página carrega
@@ -788,8 +791,12 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    // Variável global para controlar animação da home
+    window.isHomeAnimating = false;
     // Função para mostrar a home (welcome, cards e actions)
     function showHome() {
+      if (window.isHomeAnimating) return; // Evita múltiplas execuções
+      window.isHomeAnimating = true;
       // Esconde todas as seções
       document.querySelectorAll('.main > div').forEach(div => {
         div.style.display = 'none';
@@ -811,6 +818,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Re-anima o título quando retorna à home
       setTimeout(() => {
         animateWelcomeTitle();
+        window.isHomeAnimating = false; // Libera para novo clique só depois de tudo
       }, 100);
       
       // Reseta e re-anima os cards
@@ -818,11 +826,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resetCards();
         animateCards();
       }, 1200);
-      
-      // Re-executa o efeito de digitação
-      setTimeout(() => {
-        startTypewriterEffect();
-      }, 2000);
+      // Removido: chamada duplicada de startTypewriterEffect()
     }
 
     // Voltar para home ao clicar no logo
