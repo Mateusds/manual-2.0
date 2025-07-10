@@ -857,6 +857,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       } else {
         // Efeito de entrada melhorado
+        // Se for mobile, esconder o tooltip ao abrir o chat
+        if (isMobile()) {
+          hideFabDialog();
+        }
         chatBox.classList.add('open');
         chatBox.style.opacity = 0;
         chatBox.style.transform = 'translateY(40px) scale(0.95)';
