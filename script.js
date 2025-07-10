@@ -1174,6 +1174,21 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    // Controle global para digitação do bot
+    window.isBotTyping = false;
+    window.stopBotTyping = false;
+
+    function setSendBtnToStop() {
+      chatSendBtn.innerHTML = '<i class="ri-stop-line"></i>';
+      chatSendBtn.title = 'Parar resposta';
+      chatSendBtn.classList.add('stop-btn');
+    }
+    function setSendBtnToSend() {
+      chatSendBtn.innerHTML = '<i class="ri-send-plane-2-line"></i>';
+      chatSendBtn.title = 'Enviar';
+      chatSendBtn.classList.remove('stop-btn');
+    }
+
     // Reabilita os botões FAQ após a resposta ser exibida
     const oldTypeBotMsg = typeBotMsg;
     typeBotMsg = function(msg) {
@@ -1208,7 +1223,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const msgTextElement = div.querySelector('.msg-text');
       const ttsBtn = div.querySelector('.tts-btn');
       
+      // Ativa modo de digitação do bot
+      window.isBotTyping = true;
+      window.stopBotTyping = false;
+      setSendBtnToStop();
+
       function type() {
+        if (window.stopBotTyping) {
+          msgTextElement.innerHTML = msg.slice(0, i - 1); // Mostra só até onde digitou
+          window.isBotTyping = false;
+          setSendBtnToSend();
+          onFinish();
+          return;
+        }
         if (i <= msg.length) {
           msgTextElement.innerHTML = msg.slice(0, i) + '<span class="typing-cursor">|</span>';
           chatBody.scrollTop = chatBody.scrollHeight;
@@ -1217,12 +1244,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           msgTextElement.innerHTML = msg;
           chatBody.scrollTop = chatBody.scrollHeight;
-          
+          window.isBotTyping = false;
+          setSendBtnToSend();
           // Mostra o botão TTS com animação
           ttsBtn.style.opacity = '0';
           ttsBtn.style.pointerEvents = 'auto';
           ttsBtn.onclick = () => playTTS(ttsBtn, msg);
-          
           anime({
             targets: ttsBtn,
             opacity: [0, 1],
@@ -1230,7 +1257,6 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 300,
             easing: 'easeOutBack(1.7)'
           });
-          
           onFinish();
         }
       }
@@ -1261,6 +1287,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listener extra para garantir que o botão nunca recarregue a página
     if (chatSendBtn) {
       chatSendBtn.addEventListener('click', function(e) {
+        if (window.isBotTyping) {
+          window.stopBotTyping = true;
+          return;
+        }
         if (e) e.preventDefault();
         chatForm.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
       });
