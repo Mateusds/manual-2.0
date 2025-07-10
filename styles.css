@@ -1452,3 +1452,31 @@ body {
 .chat-fab.pulse {
   animation: pulse 2s infinite;
 }
+
+/* ===== ANIMAÇÕES DE SCROLL ===== */
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1);
+  will-change: opacity, transform;
+}
+.scroll-anim.fade-in.in-view {
+  opacity: 1;
+  transform: none;
+}
+.scroll-anim.slide-in-right {
+  transform: translateX(60px);
+}
+.scroll-anim.slide-in-left {
+  transform: translateX(-60px);
+}
+.scroll-anim.slide-in-up {
+  transform: translateY(60px);
+}
+.scroll-anim.slide-in-down {
+  transform: translateY(-60px);
+}
+.scroll-anim.in-view {
+  opacity: 1;
+  transform: none;
+}
