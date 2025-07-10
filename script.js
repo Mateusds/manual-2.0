@@ -1869,5 +1869,31 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(hideFabDialog, 2200);
       }
     }, 30000);
+
+    // ===== Alternância de Tema Light/Dark =====
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    function setTheme(dark) {
+      if (dark) {
+        document.body.classList.add('dark');
+        if(themeIcon) themeIcon.className = 'ri-sun-line';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        if(themeIcon) themeIcon.className = 'ri-moon-line';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    // Detecta preferência salva ou do sistema
+    const userTheme = localStorage.getItem('theme');
+    if (userTheme === 'dark') setTheme(true);
+    else if (userTheme === 'light') setTheme(false);
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme(true);
+    else setTheme(false);
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', function() {
+        setTheme(!document.body.classList.contains('dark'));
+      });
+    }
 }); // Fim do DOMContentLoaded
   
