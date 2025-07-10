@@ -895,10 +895,8 @@ document.addEventListener('DOMContentLoaded', function() {
       return window.innerWidth <= 900 || /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
     chatFab.addEventListener('click', function(e) {
-      // Se for mobile, esconder o tooltip antes de abrir o chat
-      if (isMobile()) {
-        hideFabDialog();
-      }
+      // Se for mobile, NÃO esconder o tooltip imediatamente
+      // hideFabDialog(); // Remover esta linha do clique
       // Efeito de círculo de explosão
       const rect = chatFab.getBoundingClientRect();
       const circle = document.createElement('div');
@@ -934,6 +932,8 @@ document.addEventListener('DOMContentLoaded', function() {
           chatFab.style.opacity = '';
           chatFab.style.display = 'none';
           toggleChat();
+          // Agora sim, ao abrir o chat, esconder o balão
+          hideFabDialog();
         }
       });
     });
