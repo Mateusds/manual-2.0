@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual do Prontuário Médico - Versão 1.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="manual-legacy.css">
+</head>
+<body>
+  <!-- Header Simples -->
+  <header class="legacy-header">
+    <div class="legacy-header-content">
+      <h1>Manual do Prontuário Médico</h1>
+      <p>Versão 1.0 - Guia Básico</p>
+    </div>
+  </header>
+
+  <!-- Container Principal -->
+  <div class="legacy-container">
+    <!-- Menu Lateral Simples -->
+    <nav class="legacy-sidebar">
+      <ul>
+        <li><a href="#guias">Guias</a></li>
+        <li><a href="#cadastros">Cadastros</a></li>
+        <li><a href="#prontuario">Prontuário</a></li>
+        <li><a href="#relatorios">Relatórios</a></li>
+        <li><a href="#configuracoes">Configurações</a></li>
+      </ul>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="legacy-main">
+      <!-- Seção de Boas-vindas -->
+      <section class="legacy-welcome">
+        <h2>Bem-vindo ao Manual</h2>
+        <p>Este é o manual básico do sistema de prontuário médico. Aqui você encontrará informações essenciais sobre como usar o sistema.</p>
+      </section>
+
+      <!-- Cards Básicos -->
+      <section class="legacy-cards">
+        <div class="legacy-card">
+          <h3>Gerar Guia</h3>
+          <p>Como criar guias médicas</p>
+        </div>
+        <div class="legacy-card">
+          <h3>Cadastrar Paciente</h3>
+          <p>Processo de cadastro</p>
+        </div>
+        <div class="legacy-card">
+          <h3>Emitir Relatório</h3>
+          <p>Geração de relatórios</p>
+        </div>
+        <div class="legacy-card">
+          <h3>Configurações</h3>
+          <p>Ajustes do sistema</p>
+        </div>
+      </section>
+
+      <!-- Botão de Atualização -->
+      <section class="legacy-upgrade">
+        <div class="upgrade-notification">
+          <div class="upgrade-icon">
+            <i class="ri-arrow-up-circle-line"></i>
+          </div>
+          <div class="upgrade-content">
+            <h3>Nova Versão Disponível!</h3>
+            <p>Descubra o manual completamente reformulado com animações, IA e muito mais!</p>
+            <button class="upgrade-btn" id="upgradeBtn">
+              <span class="btn-text">Atualizar para v2.0</span>
+              <span class="btn-icon"><i class="ri-arrow-right-line"></i></span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="transition.js"></script>
+</body>
+</html> 
