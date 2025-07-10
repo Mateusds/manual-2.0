@@ -1884,11 +1884,9 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', 'light');
       }
     }
-    // Detecta preferência salva ou do sistema
+    // Detecta preferência salva
     const userTheme = localStorage.getItem('theme');
     if (userTheme === 'dark') setTheme(true);
-    else if (userTheme === 'light') setTheme(false);
-    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme(true);
     else setTheme(false);
     if (themeToggleBtn) {
       themeToggleBtn.addEventListener('click', function() {

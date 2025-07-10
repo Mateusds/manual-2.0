@@ -885,9 +885,9 @@ body {
     padding: 10px 12px;
   }
   .chat-fab {
-    right: 50%;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 18px !important;
+    left: auto !important;
+    transform: none !important;
     bottom: 18px;
     width: 54px;
     height: 54px;
