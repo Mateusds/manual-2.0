@@ -882,7 +882,15 @@ document.addEventListener('DOMContentLoaded', function() {
         chatInput.focus();
       }
     }
+    // Função utilitária para detectar mobile
+    function isMobile() {
+      return window.innerWidth <= 900 || /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
     chatFab.addEventListener('click', function(e) {
+      // Se for mobile, esconder o tooltip antes de abrir o chat
+      if (isMobile()) {
+        hideFabDialog();
+      }
       // Efeito de círculo de explosão
       const rect = chatFab.getBoundingClientRect();
       const circle = document.createElement('div');
