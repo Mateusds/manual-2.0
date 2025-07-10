@@ -1580,9 +1580,9 @@ body.dark .fab-dialog-bubble {
 body.dark .fab-dialog-bubble .dialog-arrow {
   border-top: 8px solid var(--azul);
 }
-body.dark .header-search input::placeholder {
-  color: #fff;
-  opacity: 1;
+body.dark .header-search input {
+  color: var(--preto) !important;
+  background: var(--cinza-bg) !important;
 }
 
 .theme-toggle-btn {
